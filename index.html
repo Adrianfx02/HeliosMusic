@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>YouTube To Audio</title>
+  <!-- Utilizează script-ul jQuery corect, cu protocol HTTPS -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+  <input type="text" id="youtubelink">
+  <button id="download">Download</button>
+
+  <!-- Adaugă "controls" la eticheta audio pentru a afișa controalele audio -->
+  <audio id="audio" autoplay controls style="margin-top: 30px; display: none;"></audio>
+
+  <script>
+    // Încarcă script-ul de conversie înainte de a utiliza funcția converter
+    $.getScript("https://ytconverter.github.io/converter.js", function(){
+      $("#download").click(function(){
+        $("#audio").css("display", "block");
+        var youtubelink = $('#youtubelink').val();
+        var audio_tag = $('#audio')[0];
+        // Asigură-te că funcția converter este definită
+        if (typeof converter !== 'undefined') {
+          converter(youtubelink, audio_tag);
+        } else {
+          console.error("Eroare: Funcția converter nu este definită.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
